@@ -1,0 +1,43 @@
+h1 {
+  text-transform: uppercase;
+}
+
+#container {
+  border: 1px solid red;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-direction: column;
+  flex-direction: column-reverse;
+  flex-direction: row;
+  flex-direction: column;
+  height: 90vh;
+
+  /* disposizione lungo l'asse principale */
+  justify-content: center;
+  /* gap: 20px; distanzia gli elementi uno dall'altro*/
+  justify-content: space-around;
+  justify-content: space-evenly;
+  justify-content: space-between;
+
+  /* disposizione lungo l'asse secondario */
+  align-items: center;
+}
+.quadrato {
+  border: 1px solid black;
+  height: 150px;
+  width: 150px;
+  /* display: inline-block; */
+}
+
+.quadratino {
+  border: 1px solid black;
+  height: 100px;
+  width: 100px;
+}
+
+.centraTutteDir {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,304 @@
+/* reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 30px;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+main {
+  padding: 0 25px;
+}
+
+/* selettori per tag */
+header {
+  background-color: #000;
+  color: #fff;
+  padding: 15px 25px;
+  display: flex;
+  gap: 20px;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+header section {
+  display: flex;
+  flex-direction: column;
+}
+
+#logo {
+  filter: invert(1);
+  height: 32px;
+}
+#testoLogo {
+  color: var(--colore-accento);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav {
+  background-color: var(--colore-secondario);
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  padding: 15px 25px;
+  background: none;
+  border: none;
+  color: white;
+  width: 20px;
+}
+
+button.hamburger span {
+  display: block;
+  background-color: white;
+  width: 40px;
+  height: 3px;
+}
+nav ul {
+  display: flex;
+  /* Eliminazione dei pallini dalla lista */
+  list-style-type: none;
+}
+
+nav li > a {
+  font-family: var(--testo-bastoni);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  display: inline-block;
+  padding: 12px 19px;
+}
+.active,
+nav li > a:hover {
+  background-color: var(--menu--attivo);
+  border-bottom: 4px solid var(--colore-accento);
+}
+/* HEADER E NAV MEDIA QUERIES */
+/* @media screen and (max-width: 768px) { */
+@media screen and (width<= 768px) {
+  #subHeader,
+  .optionalMenu {
+    display: none;
+  }
+  header,
+  nav ul {
+    justify-content: center;
+  }
+}
+
+@media screen and (width<= 480px) {
+  nav ul {
+    display: none;
+  }
+  button.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+a {
+  color: #000;
+  /* Eliminazione della sottolineatura dei link */
+  text-decoration: none;
+}
+
+h1 {
+  color: blueviolet;
+  font-size: 50px;
+}
+
+h2 {
+  color: red;
+}
+
+h3 {
+  color: red;
+}
+/* HERO SECTION */
+#heroSection {
+  padding: 200px 25px;
+  background-image: url('../MEDIA/sfondo.jpg');
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  background-position: bottom;
+}
+
+/* CARD STATISTICHE */
+.cardStatistica {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  text-align: center;
+  border-top: 3px solid var(--colore-accento);
+}
+
+#libriTotalep {
+  color: red;
+}
+#cardStatisticaContainer {
+  display: flex;
+  gap: 15px;
+  /* fa andare a capo automaticamente (va messo nel contenitore) */
+  flex-wrap: wrap;
+}
+
+.cardStatistica {
+  /* min-width: 200px; */
+
+  /* determinano la proporzione con cui crescono o si restringono (va messo nell'elemento non nel contenitore) 
+  Si dividono lo spazio non occupato. Se tutti gli elementi hanno lo stesso valore se lo dividono equamente. 
+  */
+  flex-basis: 20%;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.cardStatistica p {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.cardStatistica span {
+  color: var(--testo-grigio);
+}
+/* SEZIONE STATISTICHE MEDIA QUERIES */
+@media screen and (width<= 768px) {
+  .cardStatistica {
+    flex-basis: 45%;
+  }
+}
+@media screen and (width<= 480px) {
+  .cardStatistica {
+    flex-basis: 100%;
+  }
+}
+
+/* GESTIONE CARD LIBRI */
+.libriCardContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.libroCard {
+  width: 160px;
+  border: 1px solid black;
+}
+/* card libro */
+.btn {
+  border-radius: var(--radius-standard);
+  cursor: pointer;
+  width: 120px;
+  font-weight: 600;
+  /* padding sintassi esplosa */
+  padding-top: 6.5px;
+  padding-bottom: 6.5px;
+  padding-right: 16px;
+  padding-left: 16px;
+  /* sintassi shorthand top/bottom right/left */
+  padding: 6.5px 16px;
+  /* sintassi shorthand top right bottom left */
+  padding: 10px 20px 30px 0;
+  /* sintassi shorthand unico valore per tutti i lati */
+  padding: 10px;
+  /* valore definitivo */
+  padding: 6.5px 16px;
+  margin: 10px 0;
+}
+
+.dettagliBtn {
+  background-color: transparent;
+  border: 2px solid var(--colore-secondario);
+  color: var(--colore-secondario);
+}
+.dettagliBtn:hover {
+  background-color: var(--colore-secondario);
+  color: white;
+}
+
+.finitoBtn {
+  background-color: var(--colore-secondario);
+  border: 2px solid var(--colore-secondario);
+  color: white;
+}
+.finitoBtn:hover {
+  border: 2px solid black;
+  background-color: black;
+}
+
+/* FOOTER */
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 25px;
+  font-family: var(--testo-bastoni);
+  font-size: 14px;
+  color: var(--testo-footer);
+}
+#topFooter {
+  display: flex;
+  gap: 10%;
+}
+#topFooter section {
+  flex-basis: 30%;
+}
+
+#topFooter section ul {
+  list-style-type: none;
+}
+#topFooter section ul li {
+  margin: 10px 0;
+}
+#topFooter section h3 {
+  color: var(--colore-accento);
+}
+#topFooter section h3 img {
+  filter: invert(1);
+  height: 16px;
+}
+#bottomFooter {
+  border-top: 1px solid var(--testo-grigio);
+  padding: 25px;
+  text-align: center;
+}
+
+footer button {
+  background-color: transparent;
+  border: none;
+}
+footer button a {
+  color: var(--colore-accento);
+  font-size: 18px;
+}
+/* SEZIONE  FOOTER MEDIA QUERIES */
+@media screen and (width<= 768px) {
+  #topFooter {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+/* classi comuni */
+.bastoni {
+  font-family: var(--testo-bastoni);
+}
+
+/* custom properties */
+:root {
+  --colore-accento: #f5a623;
+  --colore-secondario: #e8621a;
+  --testo-grigio: #7a7a7a;
+  --testo-footer: #fdf6e3b3;
+  --menu--attivo: #c25216;
+  --radius-standard: 8px;
+  --testo-bastoni: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form</title>
+    </head>
+
+    <body>
+        <h1>FORM</h1>
+        <!-- I metodi di invio dei dati possono essere:
+         GET -> non si usa mai perchè accoda alla url della action i dati in chiaro
+         POST -> si una il 99% delle volte e cripta i dati -->
+        <!-- https://httpbin.org/post url per scopi puramente didattici per vedere i parametri passati con il metodo post -->
+        <form action="https://httpbin.org/post" method="post">
+            <input type="hidden" name="provenienza" value="paginaX">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" placeholder="Il tuo nome" autofocus>
+            <!-- required attributo per rendere un campo obbligatorio ma validato da html -->
+            <label for="cognome">Cognome:</label>
+            <input type="text" name="cognome" id="cognome" placeholder="Il tuo cognome">
+            <br>
+            <!-- Il tipo email ha una validazione intrinseca che non è precisa. Consiglio di usare campo tipo text e poi validare in js -->
+            <label for="email">Email*</label>
+            <input type="email" name="email" id="email">
+            <label for="pwd">Password*</label>
+            <input type="password" name="pwd" id="pwd">
+            <br>
+            <label for="numFigli">Quanti figli hai</label>
+            <input type="number" name="numFigli" id="numFigli" size="3" min="0" max="10">
+            <br>
+            <label for="nascita">Data di nascita</label>
+            <input type="date" name="nascita" id="nascita">
+
+            <label for="regioneNascita">Regione di nascita</label>
+            <select name="regioneNascita" id="regioneNascita">
+                <option value="">Scegli una regione</option>
+                <option value="VA">Valle d'Aosta</option>
+                <option value="label">Lombardia</option>
+                <option value="LZ">Lazio</option>
+                <option value="CL">Calabria</option>
+                <option value="SC">Sicilia</option>
+            </select>
+            <br>
+            <label>Grado di parentela</label>
+            <br>
+            <label for="genitore">genitore</label>
+            <input type="radio" name="parentela" id="genitore" checked value="genitore">
+            <!-- <br> -->
+            <label for="nonno">nonno</label>
+            <input type="radio" name="parentela" id="nonno" value="nonno">
+            <!-- <br> -->
+            <label for="zio">zio</label>
+            <input type="radio" name="parentela" id="zio" value="zio">
+            <!-- <br> -->
+            <label for="altro">altro</label>
+            <input type="radio" name="parentela" id="altro" value="altro">
+            <br>
+            <label>Quali sono i tuoi interessi</label>
+            <br>
+            <input type="checkbox" name="interessi" value="svezzamento" id="svezzamento">
+            <label for="svezzamento">Svezzamento</label>
+            <br>
+            <input type="checkbox" name="interessi" id="nanna" value="nanna">
+            <label for="nanna">Nanna</label>
+            <br>
+            <input type="checkbox" name="interessi" id="giochi" value="Giochi">
+            <label for="giochi">Giochi</label>
+            <br>
+            <input type="checkbox" name="interessi" id="montessori" value="montessori" checked>
+            <label for="montessori">Montessori</label>
+            <br>
+            <label for="messaggio">Lasciaci un messaggio</label>
+            <br>
+            <textarea name="messaggio" id="messaggio" cols="50" rows="5"></textarea>
+            <br>
+            <input type="submit" name="submit" value="Invia" id="invia">
+
+            <input type="reset" name="reset" value="Svuota campi" id="reset">
+        </form>
+
+    </body>
+
+</html>

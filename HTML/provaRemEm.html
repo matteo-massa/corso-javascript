@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dimostrazione rem/em</title>
+        <style>
+            html {
+                font-size: 40px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            #provaEm {
+                border: 2px solid red;
+                font-size: 20px;
+                padding: 0.5em 1em;
+            }
+
+            #provaEm h1 {
+                font-size: 1.5em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>titolo</h1>
+        <p>paragrafo</p>
+        <section id="provaEm">
+            <h1>titolo in section</h1>
+            <p>paragrafo in section</p>
+        </section>
+    </body>
+
+</html>

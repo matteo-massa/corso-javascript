@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BookShelf</title>
+        <!-- Per aggiungere la favicon scrivere lin e poi scegliere l'opzione favicon -->
+        <link rel="shortcut icon" href="MEDIA/segnalibro.svg" type="image/x-icon">
+        <link rel="stylesheet" href="CSS/style.css">
+        <script src="JS/base.js"></script>
+    </head>
+
+    <body>
+        <!-- rettangolo nero in alto -->
+        <header>
+            <!-- <img alt="libro" width="30px" height="100px" src="MEDIA/libro.svg"> -->
+            <img src="media/libro.svg" alt="" id="logo">
+            <section>
+                <span id="testoLogo">BookShelf</span>
+                <span class="bastoni" id="subHeader">La tua libreria personale</span>
+            </section>
+        </header>
+        <!-- rettangolo arancione con menu -->
+        <nav>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#">Cerca</a></li>
+                <li><a href="HTML/libreria.html">La mia libreria</a></li>
+                <li><a href="HTML/chiSiamo.html">Chi siamo</a></li>
+                <li class="optionalMenu"><a
+                        href="https://www.mondadoristore.it/negozi/libreria/mondadori-bookstore-arese/MXV526"
+                        target="_blank">Compra da Mondadori</a></li>
+                <!-- target="_blank" apre in una scheda separata del browser -->
+                <li class="optionalMenu"><a href="#footer">Vai al footer</a></li>
+            </ul>
+            <!-- <a href="HTML/liste.html"><img src="MEDIA/statistiche.svg" alt="" title="vai alla pagina liste.html"
+                    width="30px"></a> -->
+        </nav>
+        <!-- Contenuto della pagina tag main -->
+        <main>
+            <section id="heroSection">
+                <h1>La tua libreria, sempre con te</h1>
+                <h2 class="bastoni">Tieni traccia dei libri che hai letto, stai leggendo o hai intenzione di leggere
+                </h2>
+            </section>
+            <!-- RICERCA -->
+            <section>
+                <p>qui andrà un campo di ricerca</p>
+            </section>
+            <!-- STATISTICHE -->
+            <section>
+                <!-- <img src="MEDIA/statistiche.svg" alt="statistiche" height="15px"> -->
+                <h2><img src="MEDIA/statistiche.svg" alt="statistiche" height="15px">La mia libreria
+                </h2>
+                <hr>
+                <!-- Contenitore delle 4 card statistiche -->
+                <div id="cardStatisticaContainer">
+                    <div class="cardStatistica">
+                        <p id="libriTotalep">12</p>
+                        <span>Libri Totali</span>
+                    </div>
+                    <div class="cardStatistica">
+                        <p>2</p>
+                        <span>Libri Letti</span>
+                    </div>
+                    <div class="cardStatistica">
+                        <p>8</p>
+                        <span>Libri In Lettura</span>
+                    </div>
+                    <div class="cardStatistica">
+                        <p>2</p>
+                        <span>Libri Da Leggere</span>
+                    </div>
+                </div>
+
+            </section>
+            <section>
+                <h2><img src="MEDIA/in-lettura.svg" alt="in lettura" width="20px"> In lettura</h2>
+                <hr>
+                <div class="libriCardContainer">
+                    <div class="libroCard">
+                        <figure>
+                            <img src="MEDIA/libro.svg" height="70px" alt="">
+                            <!-- <figcaption>didascalia</figcaption> -->
+                        </figure>
+                        <h3>Il nome della rosa</h3>
+                        <span>Umberto Eco</span>
+                        <br>
+                        <span>1980</span>
+                        <br>
+                        <span>In lettura</span>
+                        <br>
+                        <button class="btn dettagliBtn btnPiccolo">Dettagli</button>
+                        <br>
+                        <button class="btn finitoBtn btnPiccolo">Ho finito</button>
+                    </div>
+                    <div class="libroCard">
+                        <figure>
+                            <img src="MEDIA/libro.svg" height="70px" alt="">
+                        </figure>
+                        <h3>1984</h3>
+                        <span>George Orwell</span>
+                        <br>
+                        <span>1949</span>
+                        <br>
+                        <span>In lettura</span>
+                        <br>
+                        <button class="btn dettagliBtn btnPiccolo">Dettagli</button>
+                        <br>
+                        <button class="btn finitoBtn btnPiccolo">Ho finito</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer id="footer">
+            <section id="topFooter">
+                <section>
+                    <h3><img src="MEDIA/libro.svg" alt="">BookShelf</h3>
+                    <ul>
+                        <li>
+                            La tua libreria personale online. Tieni tracci dei tuoi libri, scopri nuovi titoli e
+                            condividi le
+                            tue letture</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Navigazione</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>Cerca Libri</li>
+                        <li>La mia libreria</li>
+                        <li>Chi siamo</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Contatti</h3>
+                    <ul>
+                        <li>info@BookShelf.it
+                        </li>
+                        <li>Privacy Policy</li>
+                        <li>Termini di servizio</li>
+                    </ul>
+                </section>
+
+            </section>
+            <section id="bottomFooter">
+                &copy;2026 BookShelf. Progetto corso TF react node
+
+            </section>
+            <button><a href="#top">Top</a></button>
+        </footer>
+    </body>
+
+</html>

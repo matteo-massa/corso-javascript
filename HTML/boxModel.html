@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>box model</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+
+            h1,
+            h2,
+            h3 {
+                font-size: 3em;
+            }
+
+            body {
+                padding: 20px 50px;
+            }
+
+            h2 {
+                margin: 15px 0;
+            }
+
+            h3 {
+                margin: 20px 0;
+            }
+
+            #container1 * {
+                /* border: 2px solid red; */
+                background-color: aqua;
+                padding: 10px 15px;
+            }
+
+            /* PADDING */
+            #container1 {
+                border: 2px solid #000;
+                /* Sintassi esplosa */
+                padding-top: 50px;
+                padding-right: 100px;
+                padding-bottom: 200px;
+                padding-left: 80px;
+                /* Sintassi shorthand top/bottom right/left */
+                padding: 30px 50px;
+                /* Sintassi shorthand top right bottom left */
+                padding: 30px 50px 30px 50px;
+                padding: 50px 100px 200px 80px;
+                /* Sintassi unico valore che vale per tutti i lati */
+                padding: 50px;
+            }
+
+            #container1 p {
+                margin-top: 20px;
+            }
+
+            #containerBb,
+            #containerCb {
+                border: 1px solid #000;
+                text-align: center;
+                padding: 100px;
+                width: 1000px;
+            }
+
+            aside {
+                background-color: aqua;
+                height: 200px;
+            }
+
+            #containerBb {
+                box-sizing: border-box;
+            }
+
+            #containerCb {
+                box-sizing: content-box;
+            }
+
+            #spiegazione {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin: 20px 0;
+                background-color: yellow;
+                padding: 20px;
+            }
+
+            /* ESEMPIO CON BOTTONI */
+            button {
+                width: 70px;
+                padding: 10px;
+                box-sizing: border-box;
+                margin: 10px 0;
+            }
+
+            .cb {
+                box-sizing: content-box;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Box Model</h1>
+        <h2>Padding e margin</h2>
+        <section id="container1">
+            <span>lorem</span>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam suscipit veritatis voluptates distinctio
+                numquam modi, voluptatibus non amet error sint, itaque aperiam assumenda quibusdam et facilis, ex animi
+                ullam quos!</p>
+
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam suscipit veritatis voluptates distinctio
+                numquam
+                modi, voluptatibus non amet error sint, itaque aperiam assumenda quibusdam et facilis, ex animi ullam
+                quos!</p>
+        </section>
+        <h2>Box sizing</h2>
+        <h3>Container con boxsizing:borderbox</h3>
+        <section id="containerBb">
+            <aside></aside>
+        </section>
+        <h3>Container con boxsizing:contentbox (default)</h3>
+        <section id="containerCb">
+            <aside></aside>
+        </section>
+        <p id="spiegazione">L'unica differenza fra il contenitore inferiore e quello superiore è la proprietà
+            box-sizing. Se è =
+            content-box (default) il border e il padding vengono sommati alle dimensioni del contenuto. Se = border-box
+            il contenuto viene compresso mentre la dimensione del contenitore da bordo a bordo rimane invariata. N.B.
+            Questa differenza vale solo quando viene fissata una dimensione (in questo caso width: 1000px; dei 2
+            container) </p>
+
+        <!-- ESEMPIO CON BOTTONI -->
+        <h3>Esempio con bottoni</h3>
+        <button>Home</button> <button>Chi siamo</button> <button>Servizi</button> <span>border-box</span>
+        <br>
+        <button class="cb">Home</button> <button class="cb">Chi siamo</button> <button class="cb">Servizi</button>
+        <span>content-box</span>
+    </body>
+
+</html>

@@ -1,0 +1,92 @@
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-titolo {
+  margin-bottom: 1.5rem;
+  color: #1a1a2e;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #f0e6d3;
+  padding-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2d2d2d;
+}
+
+.war-room-form input[type="text"],
+.war-room-form select,
+.war-room-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.war-room-form input:focus,
+.war-room-form select:focus,
+.war-room-form textarea:focus {
+  outline: none;
+  border-color: #e8621a;
+  box-shadow: 0 0 0 2px rgba(232, 98, 26, 0.1);
+}
+
+.war-room-form textarea {
+  resize: vertical;
+}
+
+.form-nota {
+  font-size: 0.75rem;
+  color: #7a7a7a;
+  margin-top: 0.3rem;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fdf8f2;
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid #dc2626;
+}
+
+.checkbox-group label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  background-color: #1a1a2e;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #2a2a4a;
+}

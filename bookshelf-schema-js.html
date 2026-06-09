@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookshelf — Schema flusso JS</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #16161e;
+    --surface2: #1e1e28;
+    --border: #2a2a38;
+    --text: #e8e8f0;
+    --muted: #7878a0;
+    --blue: #5b8dee;
+    --blue-dim: #1e2d4a;
+    --teal: #3ecfaf;
+    --teal-dim: #0d2e28;
+    --amber: #f0a84a;
+    --amber-dim: #2e2010;
+    --purple: #a07cf0;
+    --purple-dim: #1e1530;
+    --coral: #f07070;
+    --coral-dim: #2e1414;
+    --gray-dim: #1a1a24;
+    --radius: 10px;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  header {
+    max-width: 860px;
+    margin: 0 auto 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    background: var(--teal-dim);
+    border: 1px solid var(--teal);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 0.75rem;
+    letter-spacing: .05em;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+
+  h1 span { color: var(--teal); }
+
+  .subtitle {
+    margin-top: .5rem;
+    color: var(--muted);
+    font-size: .95rem;
+    font-weight: 400;
+  }
+
+  /* tabs */
+  .tabs {
+    max-width: 860px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: .03em;
+  }
+
+  .tab:hover { border-color: var(--muted); color: var(--text); }
+
+  .tab.active {
+    background: var(--teal-dim);
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
+  /* panels */
+  .panel { display: none; max-width: 860px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* section title */
+  .section-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  /* cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* file grid */
+  .file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+
+  .file-card {
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    border: 1px solid;
+  }
+
+  .file-card.blue  { background: var(--blue-dim);   border-color: var(--blue);   }
+  .file-card.teal  { background: var(--teal-dim);   border-color: var(--teal);   }
+  .file-card.amber { background: var(--amber-dim);  border-color: var(--amber);  }
+  .file-card.purple{ background: var(--purple-dim); border-color: var(--purple); }
+  .file-card.gray  { background: var(--gray-dim);   border-color: var(--border); }
+
+  .file-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: .35rem;
+  }
+  .file-card.blue   .file-name { color: var(--blue);   }
+  .file-card.teal   .file-name { color: var(--teal);   }
+  .file-card.amber  .file-name { color: var(--amber);  }
+  .file-card.purple .file-name { color: var(--purple); }
+  .file-card.gray   .file-name { color: var(--muted);  }
+
+  .file-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .file-methods {
+    margin-top: .6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .method-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .file-card.blue   .method-tag { color: var(--blue);   border-color: var(--blue);   background: transparent; }
+  .file-card.teal   .method-tag { color: var(--teal);   border-color: var(--teal);   background: transparent; }
+  .file-card.amber  .method-tag { color: var(--amber);  border-color: var(--amber);  background: transparent; }
+  .file-card.purple .method-tag { color: var(--purple); border-color: var(--purple); background: transparent; }
+
+  /* dep arrows */
+  .dep-section { margin-bottom: 2rem; }
+
+  .dep-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+
+  .dep-from {
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .dep-arrow { color: var(--muted); font-size: 14px; flex-shrink: 0; }
+
+  .dep-to {
+    padding: 4px 10px;
+    border-radius: 5px;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .dep-note {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--sans);
+  }
+
+  /* flow steps */
+  .flow-steps { position: relative; }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .step-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .step-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    border: 1px solid;
+  }
+
+  .step-connector {
+    width: 1px;
+    flex: 1;
+    min-height: 20px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+
+  .step:last-child .step-connector { display: none; }
+
+  .step-body {
+    padding-bottom: 20px;
+    flex: 1;
+  }
+
+  .step-file {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .05em;
+    margin-bottom: 4px;
+  }
+
+  .step-title {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* branch */
+  .branch-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    margin-bottom: 20px;
+  }
+
+  .branch-card {
+    border-radius: var(--radius);
+    padding: .9rem 1.1rem;
+    border: 1px solid;
+  }
+
+  .branch-card.ok     { background: var(--teal-dim);  border-color: var(--teal);  }
+  .branch-card.err    { background: var(--coral-dim); border-color: var(--coral); }
+
+  .branch-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .07em;
+    margin-bottom: 4px;
+  }
+  .branch-card.ok  .branch-label { color: var(--teal);  }
+  .branch-card.err .branch-label { color: var(--coral); }
+
+  .branch-fn {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .branch-card.ok  .branch-fn { color: var(--teal);  }
+  .branch-card.err .branch-fn { color: var(--coral); }
+
+  .branch-desc { font-size: 12px; color: var(--muted); }
+
+  /* note box */
+  .note {
+    background: var(--surface2);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: .75rem 1rem;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 1rem;
+  }
+
+  .note strong { color: var(--teal); font-family: var(--mono); font-weight: 600; }
+
+  /* methods table */
+  .methods-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+  }
+
+  .methods-table th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--muted);
+    text-align: left;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  .methods-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .methods-table tr:last-child td { border-bottom: none; }
+
+  .fn { font-family: var(--mono); font-size: 12px; }
+  .fn.blue   { color: var(--blue);   }
+  .fn.teal   { color: var(--teal);   }
+  .fn.amber  { color: var(--amber);  }
+  .fn.purple { color: var(--purple); }
+
+  .ret { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .desc-cell { color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+
+  /* color helpers */
+  .c-blue   { color: var(--blue);   }
+  .c-teal   { color: var(--teal);   }
+  .c-amber  { color: var(--amber);  }
+  .c-purple { color: var(--purple); }
+  .c-coral  { color: var(--coral);  }
+
+  .bg-blue   { background: var(--blue-dim);   border-color: var(--blue);   color: var(--blue);   }
+  .bg-teal   { background: var(--teal-dim);   border-color: var(--teal);   color: var(--teal);   }
+  .bg-amber  { background: var(--amber-dim);  border-color: var(--amber);  color: var(--amber);  }
+  .bg-purple { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
+  .bg-gray   { background: var(--gray-dim);   border-color: var(--border); color: var(--muted);  }
+  .bg-coral  { background: var(--coral-dim);  border-color: var(--coral);  color: var(--coral);  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">progetto bookshelf · fase 2</div>
+  <h1>Schema flusso <span>JavaScript</span></h1>
+  <p class="subtitle">Architettura dei file, dipendenze e metodi principali</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('architettura')">Architettura</button>
+  <button class="tab" onclick="show('ricerca')">Flusso ricerca</button>
+  <button class="tab" onclick="show('aggiungi')">Aggiungi libro</button>
+  <button class="tab" onclick="show('dati')">Dati &amp; storage</button>
+</div>
+
+<!-- ═══════════════ TAB 1 ═══════════════ -->
+<div class="panel active" id="panel-architettura">
+
+  <p class="section-title">I file JS e le loro responsabilità</p>
+
+  <div class="file-grid">
+    <div class="file-card gray">
+      <div class="file-name">index.html</div>
+      <div class="file-desc">Punto di ingresso. Carica gli script nell'ordine corretto.</div>
+    </div>
+    <div class="file-card blue">
+      <div class="file-name">main.js</div>
+      <div class="file-desc">Logica della home: ricerca e sezioni libri.</div>
+      <div class="file-methods">
+        <span class="method-tag">avviaRicerca()</span>
+        <span class="method-tag">aggiornaSezioni()</span>
+      </div>
+    </div>
+    <div class="file-card teal">
+      <div class="file-name">ui.js</div>
+      <div class="file-desc">Tutto ciò che tocca il DOM: card, stati, notifiche.</div>
+      <div class="file-methods">
+        <span class="method-tag">creaCardRicerca()</span>
+        <span class="method-tag">creaCardLibreria()</span>
+        <span class="method-tag">mostraRisultati()</span>
+        <span class="method-tag">mostraLoading()</span>
+        <span class="method-tag">mostraNotifica()</span>
+        <span class="method-tag">aggiornaStatistiche()</span>
+      </div>
+    </div>
+    <div class="file-card amber">
+      <div class="file-name">api.js</div>
+      <div class="file-desc">Chiamate a Open Library API e normalizzazione dati.</div>
+      <div class="file-methods">
+        <span class="method-tag">cercaLibri(query)</span>
+        <span class="method-tag">normalizzaLibro(obj)</span>
+      </div>
+    </div>
+    <div class="file-card purple">
+      <div class="file-name">libreria.js</div>
+      <div class="file-desc">Dati in memoria + persistenza su localStorage.</div>
+      <div class="file-methods">
+        <span class="method-tag">aggiungi()</span>
+        <span class="method-tag">rimuovi()</span>
+        <span class="method-tag">cambiaStato()</span>
+        <span class="method-tag">salva()</span>
+        <span class="method-tag">filtraPerStato()</span>
+        <span class="method-tag">calcolaStatistiche()</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Dipendenze (chi chiama chi)</p>
+
+  <div class="dep-section">
+    <div class="dep-row">
+      <span class="dep-from bg-gray">index.html</span>
+      <span class="dep-arrow">→</span>
+      <span class="dep-to bg-blue">main.js</span>
+      <span class="dep-note">carica lo script</span>
+    </div>
+    <div class="dep-row">
+      <span class="dep-from bg-blue">main.js</span>
+      <span class="dep-arrow">→</span>
+      <span class="dep-to bg-amber">api.js</span>
+      <span class="dep-note">chiama cercaLibri() durante la ricerca</span>
+    </div>
+    <div class="dep-row">
+      <span class="dep-from bg-blue">main.js</span>
+      <span class="dep-arrow">→</span>
+      <span class="dep-to bg-teal">ui.js</span>
+      <span class="dep-note">chiama mostraRisultati(), aggiornaStatistiche() ecc.</span>
+    </div>
+    <div class="dep-row">
+      <span class="dep-from bg-blue">main.js</span>
+      <span class="dep-arrow">→</span>
+      <span class="dep-to bg-purple">libreria.js</span>
+      <span class="dep-note">legge l'istanza globale <code style="font-family:var(--mono);font-size:11px">libreria</code></span>
+    </div>
+    <div class="dep-row">
+      <span class="dep-from bg-teal">ui.js</span>
+      <span class="dep-arrow">→</span>
+      <span class="dep-to bg-purple">libreria.js</span>
+      <span class="dep-note">usa libreria.contiene() nelle card di ricerca</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ TAB 2 ═══════════════ -->
+<div class="panel" id="panel-ricerca">
+
+  <p class="section-title">Dal click su Cerca alla visualizzazione dei risultati</p>
+
+  <div class="flow-steps">
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-gray">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-teal">— evento utente</div>
+        <div class="step-title" style="color:var(--text)">Click su "Cerca" (o tasto Invio)</div>
+        <div class="step-desc">Il listener su <code style="font-family:var(--mono);font-size:12px">btnCerca</code> e sull'input keydown chiama avviaRicerca().</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-blue">2</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-blue">main.js</div>
+        <div class="step-title c-blue">avviaRicerca()</div>
+        <div class="step-desc">Legge il valore dell'input. Se è vuoto, esce subito. Altrimenti mostra la sezione risultati e avvia il processo <strong>async</strong>.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-teal">3</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-teal">ui.js</div>
+        <div class="step-title c-teal">mostraLoading(griglia)</div>
+        <div class="step-desc">Inietta uno spinner nel DOM mentre aspettiamo la risposta. Il browser rimane reattivo perché siamo in async/await.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-amber">4</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-amber">api.js</div>
+        <div class="step-title c-amber">await cercaLibri(query)</div>
+        <div class="step-desc">
+          Costruisce l'URL con <code style="font-family:var(--mono);font-size:12px">encodeURIComponent(query)</code>, fa il fetch a Open Library, controlla <code style="font-family:var(--mono);font-size:12px">risposta.ok</code>.<br>
+          Poi mappa ogni elemento con <strong style="font-family:var(--mono);font-size:12px;color:var(--amber)">normalizzaLibro()</strong> → restituisce un array di oggetti puliti.
+        </div>
+
+        <div class="branch-container">
+          <div class="branch-card ok">
+            <div class="branch-label">✓ SUCCESSO</div>
+            <div class="branch-fn">mostraRisultati(libri)</div>
+            <div class="branch-desc">ui.js genera una card per ogni libro con creaCardRicerca()</div>
+          </div>
+          <div class="branch-card err">
+            <div class="branch-label">✗ ERRORE</div>
+            <div class="branch-fn">mostraErrore(griglia)</div>
+            <div class="branch-desc">ui.js mostra un messaggio di errore nel DOM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <strong>async / await</strong> — avviaRicerca è dichiarata <code style="font-family:var(--mono);font-size:11px">async</code>. Quando incontra <code style="font-family:var(--mono);font-size:11px">await cercaLibri()</code> "mette in pausa" solo quella funzione, non l'intera pagina. Il browser continua a rispondere a click e scroll mentre aspetta la rete.
+  </div>
+
+</div>
+
+<!-- ═══════════════ TAB 3 ═══════════════ -->
+<div class="panel" id="panel-aggiungi">
+
+  <p class="section-title">Dal click su "+ Aggiungi" al salvataggio</p>
+
+  <div class="flow-steps">
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-gray">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-teal">— evento utente</div>
+        <div class="step-title" style="color:var(--text)">Click su "+ Aggiungi"</div>
+        <div class="step-desc">Il listener è aggiunto dal bottone dentro creaCardRicerca() in ui.js.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-purple">2</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-purple">libreria.js</div>
+        <div class="step-title c-purple">libreria.aggiungi(datiLibro)</div>
+        <div class="step-desc">
+          Prima controlla con <strong style="font-family:var(--mono);font-size:12px;color:var(--purple)">contiene(id)</strong> se il libro è già presente.
+        </div>
+
+        <div class="branch-container">
+          <div class="branch-card err">
+            <div class="branch-label">già presente</div>
+            <div class="branch-fn">return false</div>
+            <div class="branch-desc">Il bottone resta disabilitato, nessuna azione</div>
+          </div>
+          <div class="branch-card ok">
+            <div class="branch-label">nuovo</div>
+            <div class="branch-fn">push + salva()</div>
+            <div class="branch-desc">Aggiunge al array in memoria e scrive su localStorage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-teal">3</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-teal">ui.js</div>
+        <div class="step-title c-teal">aggiornaStatistiche() + mostraNotifica()</div>
+        <div class="step-desc">I contatori in alto vengono aggiornati. Appare la notifica temporanea in basso a destra (gestita interamente con classi CSS).</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot bg-teal">4</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-file c-teal">ui.js + main.js</div>
+        <div class="step-title c-teal">aggiornaSezioniLibreria()</div>
+        <div class="step-desc">Le sezioni "In lettura", "Da leggere", "Letti" nella home vengono ridisegnate per mostrare il nuovo libro.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ═══════════════ TAB 4 ═══════════════ -->
+<div class="panel" id="panel-dati">
+
+  <p class="section-title">Costruttori e metodi — libreria.js</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem;">
+    <div class="file-card purple">
+      <div class="file-name">Libro (costruttore)</div>
+      <div class="file-desc" style="margin-top:.5rem;line-height:1.9">
+        <code style="font-family:var(--mono);font-size:11px;color:var(--purple)">id</code> · titolo · autore · anno<br>
+        copertina · edizioni<br>
+        <code style="font-family:var(--mono);font-size:11px;color:var(--purple)">stato</code>: da-leggere / in-lettura / letto<br>
+        dataAggiunta (ISO string)
+      </div>
+    </div>
+    <div class="file-card purple">
+      <div class="file-name">Libreria (costruttore)</div>
+      <div class="file-desc" style="margin-top:.5rem">Al caricamento legge localStorage e ricostruisce l'array <code style="font-family:var(--mono);font-size:11px;color:var(--purple)">this.libri</code> con istanze di Libro.</div>
+      <div class="file-methods" style="margin-top:.5rem">
+        <span class="method-tag">const libreria = new Libreria()</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Metodi principali</p>
+
+  <table class="methods-table">
+    <thead>
+      <tr>
+        <th>metodo</th>
+        <th>ritorna</th>
+        <th>cosa fa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="fn purple">getLibri()</span></td>
+        <td><span class="ret">Libro[]</span></td>
+        <td class="desc-cell">Restituisce tutti i libri in memoria</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">contiene(id)</span></td>
+        <td><span class="ret">boolean</span></td>
+        <td class="desc-cell">Controlla se un libro è già in libreria (usato prima di aggiungi)</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">filtraPerStato(stato)</span></td>
+        <td><span class="ret">Libro[]</span></td>
+        <td class="desc-cell">Filtra per "da-leggere", "in-lettura" o "letto"</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">calcolaStatistiche()</span></td>
+        <td><span class="ret">{ totale, letti… }</span></td>
+        <td class="desc-cell">Conta i libri per stato, usato da aggiornaStatistiche() in ui.js</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">aggiungi(dati)</span></td>
+        <td><span class="ret">boolean</span></td>
+        <td class="desc-cell">Aggiunge se non presente, poi chiama salva()</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">rimuovi(id)</span></td>
+        <td><span class="ret">boolean</span></td>
+        <td class="desc-cell">Filtra via il libro dall'array, poi chiama salva()</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">cambiaStato(id, stato)</span></td>
+        <td><span class="ret">boolean</span></td>
+        <td class="desc-cell">Aggiorna lo stato di un libro, poi chiama salva()</td>
+      </tr>
+      <tr>
+        <td><span class="fn purple">salva()</span></td>
+        <td><span class="ret">void</span></td>
+        <td class="desc-cell">Serializza this.libri con JSON.stringify e scrive su localStorage</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Pattern read/write</strong> — i dati vivono sempre in memoria (<code style="font-family:var(--mono);font-size:11px">this.libri</code>). Ogni lettura è veloce (array in RAM). Solo le scritture chiamano <code style="font-family:var(--mono);font-size:11px">salva()</code> che sincronizza su localStorage.
+  </div>
+
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
